@@ -41,8 +41,8 @@ cargo scaffold <day>
 
 # output:
 # Created module file "src/bin/01.rs"
-# Created empty input file "data/inputs/01.txt"
-# Created empty example file "data/examples/01.txt"
+# Created empty input file "data/inputs/01-2.txt"
+# Created empty example file "data/examples/01-2.txt"
 # ---
 # 🎄 Type `cargo solve 01` to run your solution.
 ```
@@ -66,9 +66,9 @@ cargo download <day>
 # output:
 # [INFO  aoc] 🎄 aoc-cli - Advent of Code command-line tool
 # [INFO  aoc_client] 🎅 Saved puzzle to 'data/puzzles/01.md'
-# [INFO  aoc_client] 🎅 Saved input to 'data/inputs/01.txt'
+# [INFO  aoc_client] 🎅 Saved input to 'data/inputs/01-2.txt'
 # ---
-# 🎄 Successfully wrote input to "data/inputs/01.txt".
+# 🎄 Successfully wrote input to "data/inputs/01-2.txt".
 # 🎄 Successfully wrote puzzle to "data/puzzles/01.md".
 ```
 
