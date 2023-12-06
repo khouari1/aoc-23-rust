@@ -12,19 +12,24 @@ pub fn part_one(input: &str) -> Option<u32> {
         let mut red_too_high = false;
         let mut green_too_high = false;
         let mut blue_too_high = false;
-        calc_game(reveals, |n| {
-            if n > &red_to_find {
-                red_too_high = true;
-            }
-        }, |n| {
-            if n > &green_to_find {
-                green_too_high = true;
-            }
-        }, |n| {
-            if n > &blue_to_find {
-                blue_too_high = true;
-            }
-        });
+        calc_game(
+            reveals,
+            |n| {
+                if n > &red_to_find {
+                    red_too_high = true;
+                }
+            },
+            |n| {
+                if n > &green_to_find {
+                    green_too_high = true;
+                }
+            },
+            |n| {
+                if n > &blue_to_find {
+                    blue_too_high = true;
+                }
+            },
+        );
         if !red_too_high && !green_too_high && !blue_too_high {
             valid_games.insert(game);
         }
@@ -39,19 +44,24 @@ pub fn part_two(input: &str) -> Option<u32> {
         let mut min_red = 0;
         let mut min_green = 0;
         let mut min_blue = 0;
-        calc_game(reveals, |n| {
-            if n > &min_red {
-                min_red = *n;
-            }
-        }, |n| {
-            if n > &min_green {
-                min_green = *n;
-            }
-        }, |n| {
-            if n > &min_blue {
-                min_blue = *n;
-            }
-        });
+        calc_game(
+            reveals,
+            |n| {
+                if n > &min_red {
+                    min_red = *n;
+                }
+            },
+            |n| {
+                if n > &min_green {
+                    min_green = *n;
+                }
+            },
+            |n| {
+                if n > &min_blue {
+                    min_blue = *n;
+                }
+            },
+        );
         powers.push(min_red * min_green * min_blue);
     });
     Some(powers.iter().sum())
@@ -63,7 +73,8 @@ fn get_game_info(line: &String) -> (u32, Vec<String>) {
         .next()
         .unwrap()
         .replace("Game ", "")
-        .parse::<u32>().unwrap();
+        .parse::<u32>()
+        .unwrap();
     let reveals: Vec<String> = parts
         .next()
         .unwrap()

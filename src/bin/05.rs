@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 
-use crate::AlmanacMapType::{FertilizerToWater, HumidityToLocation, LightToTemperature, SeedToSoil, SoilToFertilizer, TemperatureToHumidity, WaterToLight};
+use crate::AlmanacMapType::{
+    FertilizerToWater, HumidityToLocation, LightToTemperature, SeedToSoil, SoilToFertilizer,
+    TemperatureToHumidity, WaterToLight,
+};
 
 advent_of_code::solution!(5);
 
@@ -43,21 +46,54 @@ pub fn part_one(input: &str) -> Option<usize> {
         } else if line.starts_with("seed-") {
             create_map_type(&mut almanac_maps_by_type, &mut lines, index, SeedToSoil);
         } else if line.starts_with("soil-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, SoilToFertilizer);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                SoilToFertilizer,
+            );
         } else if line.starts_with("fertilizer-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, FertilizerToWater);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                FertilizerToWater,
+            );
         } else if line.starts_with("water-") {
             create_map_type(&mut almanac_maps_by_type, &mut lines, index, WaterToLight);
         } else if line.starts_with("light-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, LightToTemperature);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                LightToTemperature,
+            );
         } else if line.starts_with("temperature-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, TemperatureToHumidity);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                TemperatureToHumidity,
+            );
         } else if line.starts_with("humidity-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, HumidityToLocation);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                HumidityToLocation,
+            );
         }
         index += 1;
-    };
-    let types: Vec<AlmanacMapType> = Vec::from([SeedToSoil, SoilToFertilizer, FertilizerToWater, WaterToLight, LightToTemperature, TemperatureToHumidity, HumidityToLocation]);
+    }
+    let types: Vec<AlmanacMapType> = Vec::from([
+        SeedToSoil,
+        SoilToFertilizer,
+        FertilizerToWater,
+        WaterToLight,
+        LightToTemperature,
+        TemperatureToHumidity,
+        HumidityToLocation,
+    ]);
     let mut total: usize = usize::MAX;
     for i in 0..seeds.len() {
         let mut num: usize = *seeds.get(i).unwrap();
@@ -81,12 +117,21 @@ pub fn part_one(input: &str) -> Option<usize> {
     Some(total)
 }
 
-fn create_map_type(almanac_maps_by_type: &mut HashMap<AlmanacMapType, Vec<AlmanacMap>>, lines: &mut Vec<String>, mut index: usize, almanac_map_type: AlmanacMapType) {
+fn create_map_type(
+    almanac_maps_by_type: &mut HashMap<AlmanacMapType, Vec<AlmanacMap>>,
+    lines: &mut Vec<String>,
+    mut index: usize,
+    almanac_map_type: AlmanacMapType,
+) {
     let list = almanac_maps_by_type.entry(almanac_map_type).or_default();
     index += 1;
     let mut current_line = lines.get(index).unwrap();
     while !current_line.is_empty() {
-        let ns: Vec<usize> = current_line.split(" ").map(|s| s.trim()).map(|s| s.parse::<usize>().unwrap()).collect();
+        let ns: Vec<usize> = current_line
+            .split(" ")
+            .map(|s| s.trim())
+            .map(|s| s.parse::<usize>().unwrap())
+            .collect();
         let new_map = AlmanacMap {
             map_type: SeedToSoil,
             destination_range_start: *ns.get(0).unwrap(),
@@ -111,7 +156,8 @@ pub fn part_two(input: &str) -> Option<usize> {
     while index < count {
         let line: &String = lines.get(index).unwrap();
         if line.starts_with("seeds") {
-            let seed_numbers: Vec<usize> = line.split(":")
+            let seed_numbers: Vec<usize> = line
+                .split(":")
                 .nth(1)
                 .unwrap()
                 .trim()
@@ -121,27 +167,63 @@ pub fn part_two(input: &str) -> Option<usize> {
                 .collect();
             let mut i = 0;
             while i < seed_numbers.len() {
-                seeds_with_range.push((*seed_numbers.get(i).unwrap(), *seed_numbers.get(i + 1).unwrap()));
+                seeds_with_range.push((
+                    *seed_numbers.get(i).unwrap(),
+                    *seed_numbers.get(i + 1).unwrap(),
+                ));
                 i += 2;
             }
         } else if line.starts_with("seed-") {
             create_map_type(&mut almanac_maps_by_type, &mut lines, index, SeedToSoil);
         } else if line.starts_with("soil-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, SoilToFertilizer);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                SoilToFertilizer,
+            );
         } else if line.starts_with("fertilizer-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, FertilizerToWater);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                FertilizerToWater,
+            );
         } else if line.starts_with("water-") {
             create_map_type(&mut almanac_maps_by_type, &mut lines, index, WaterToLight);
         } else if line.starts_with("light-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, LightToTemperature);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                LightToTemperature,
+            );
         } else if line.starts_with("temperature-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, TemperatureToHumidity);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                TemperatureToHumidity,
+            );
         } else if line.starts_with("humidity-") {
-            create_map_type(&mut almanac_maps_by_type, &mut lines, index, HumidityToLocation);
+            create_map_type(
+                &mut almanac_maps_by_type,
+                &mut lines,
+                index,
+                HumidityToLocation,
+            );
         }
         index += 1;
-    };
-    let types: Vec<AlmanacMapType> = Vec::from([SeedToSoil, SoilToFertilizer, FertilizerToWater, WaterToLight, LightToTemperature, TemperatureToHumidity, HumidityToLocation]);
+    }
+    let types: Vec<AlmanacMapType> = Vec::from([
+        SeedToSoil,
+        SoilToFertilizer,
+        FertilizerToWater,
+        WaterToLight,
+        LightToTemperature,
+        TemperatureToHumidity,
+        HumidityToLocation,
+    ]);
     let mut total: usize = usize::MAX;
 
     for i in 0..seeds_with_range.len() {

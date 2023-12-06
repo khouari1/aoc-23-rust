@@ -245,7 +245,7 @@ pub fn part_two(input: &str) -> Option<usize> {
                 if !stars.is_empty() {
                     stars.iter().for_each(|(x, y)| {
                         let mut v = gears.entry((*x, *y)).or_default();
-                        v.push(current_number.parse::<usize>().unwrap());;
+                        v.push(current_number.parse::<usize>().unwrap());
                     });
                 }
                 // reset state
@@ -258,11 +258,12 @@ pub fn part_two(input: &str) -> Option<usize> {
         if !stars.is_empty() {
             stars.iter().for_each(|(x, y)| {
                 let mut v = gears.entry((*x, *y)).or_default();
-                v.push(current_number.parse::<usize>().unwrap());;
+                v.push(current_number.parse::<usize>().unwrap());
             });
         }
     }
-    let total = gears.iter()
+    let total = gears
+        .iter()
         .filter(|(k, v)| v.len() > 1)
         .map(|(k, v)| v.clone().into_iter().reduce(|a, b| a * b))
         .map(|x| x.unwrap())
